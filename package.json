@@ -1,0 +1,18 @@
+{
+  "name": "po",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.2",
+    "prisma": "^4.14.0",
+    "tsc": "^2.0.4",
+    "tsx": "^3.12.7"
+  },
+  "dependencies": {
+    "@prisma/client": "^4.14.0",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0"
+  }
+}
