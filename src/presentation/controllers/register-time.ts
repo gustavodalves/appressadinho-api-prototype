@@ -9,15 +9,11 @@ import { UseTimeRepository } from "../../infra/db/prisma/repositories/use-time";
 import { UseTime } from "../../domain/entities/use-time";
 
 export class RegisterTimeController {
-    constructor(
-        private readonly prisma: PrismaClient,
-    ) {}
-
     async handle(request: Request, response: Response) {
         const { cpf, startAt, endAt } = request.body;
 
-        const userRepository = new UserRepository(this.prisma)
-        const useTimeRepository = new UseTimeRepository(this.prisma)
+        const userRepository = new UserRepository()
+        const useTimeRepository = new UseTimeRepository()
 
         const useAppUseCase = new UseAppUseCase(
             userRepository,

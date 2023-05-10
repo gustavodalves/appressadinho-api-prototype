@@ -7,8 +7,7 @@ import { UserRepository } from "../../infra/db/prisma/repositories/user";
 
 export class RegisterUserController {
     constructor(
-        private readonly prisma: PrismaClient,
-        private readonly tokenGenerator: TokenGenerator,
+        private tokenGenerator: TokenGenerator,
     ) {}
 
     async handle(request: Request, response: Response) {
@@ -16,7 +15,7 @@ export class RegisterUserController {
 
         const birthDateInDate = new Date(birthDate)
 
-        const userRepository = new UserRepository(this.prisma)
+        const userRepository = new UserRepository()
 
         const registerUserUseCase = new RegisterUserUseCase(
             this.tokenGenerator,

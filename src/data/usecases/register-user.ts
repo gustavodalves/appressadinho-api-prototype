@@ -6,15 +6,17 @@ import { FindUser } from "../repositories/find-user";
 
 export class RegisterUserUseCase implements RegisterUser {
     constructor(
-        private readonly tokenGenerator: TokenGenerator,
+        private tokenGenerator: TokenGenerator,
         private readonly createUser: CreateUserRepository,
         private readonly findUser: FindUser,
     ) {}
 
     async execute(input: { name: string; cpf: string; state: string; city: string; birthDate: Date }): Promise<{ user: User; token: string; }> {
         try {
-            this.findUser.findByCpf(input.cpf)
+            await this.findUser.findByCpf(input.cpf)
 
+            throw new Error("User already exists")
+        } catch {
             const user = new User(
                 input.name,
                 input.cpf,
@@ -31,9 +33,6 @@ export class RegisterUserUseCase implements RegisterUser {
                 user,
                 token,
             }
-
-        } catch {
-            throw new Error('User already exists')
         }
     }
 }

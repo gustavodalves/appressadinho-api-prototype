@@ -2,10 +2,11 @@ import { PrismaClient } from "@prisma/client";
 import { CreateUserRepository } from "../../../../data/repositories/create-user";
 import { FindUser } from "../../../../data/repositories/find-user";
 import { User } from "../../../../domain/entities/user";
+import { prisma } from "../instance";
 
 export class UserRepository implements FindUser, CreateUserRepository {
+    private readonly prisma: PrismaClient = prisma
     constructor(
-        private readonly prisma: PrismaClient
     ) {}
 
     async create(user: User): Promise<void> {
