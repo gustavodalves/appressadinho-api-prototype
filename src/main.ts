@@ -16,7 +16,7 @@ const registerController = new RegisterUserController(
 const useTimeControler = new RegisterTimeController()
 
 app.post('/user', (req, res) => registerController.handle(req, res))
-app.post('/use-time', () => useTimeControler.handle)
+app.post('/use-time', (req, res) => useTimeControler.handle(req, res))
 
 app.listen(3000, () => {
     console.log('server is running at localhost: 3000')
