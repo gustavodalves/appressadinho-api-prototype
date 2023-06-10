@@ -3,8 +3,9 @@ import { CreateUserRepository } from "../../../../data/repositories/create-user"
 import { FindUser } from "../../../../data/repositories/find-user";
 import { User } from "../../../../domain/entities/user";
 import { prisma } from "../instance";
+import { UpdateUser } from "../../../../data/repositories/update-user";
 
-export class UserRepository implements FindUser, CreateUserRepository {
+export class UserRepository implements FindUser, CreateUserRepository, UpdateUser {
     private readonly prisma: PrismaClient = prisma
 
     async create(user: User): Promise<void> {
@@ -62,5 +63,14 @@ export class UserRepository implements FindUser, CreateUserRepository {
             prismaUser.gender,
             prismaUser.email,
         )
+    }
+
+    async update(user: User): Promise<void> {
+        const prismaUser = await this.prisma.user.update({
+            where: { email: user.email },
+            data: {
+                ...user
+            }
+        })
     }
 }

@@ -11,16 +11,17 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid()) @map("_id")
-  name      String
-  birthDate DateTime
-  cpf       String    @unique
-  city      String
-  state     String
-  gender    String
-  email     String    @unique
-  password  String
-  UseTime   UseTime[]
+  id          String        @id @default(uuid()) @map("_id")
+  name        String
+  birthDate   DateTime
+  cpf         String        @unique
+  city        String
+  state       String
+  gender      String
+  email       String        @unique
+  password    String
+  UseTime     UseTime[]
+  RecoverCode RecoverCode[]
 }
 
 model UseTime {
@@ -28,6 +29,13 @@ model UseTime {
   startAt DateTime
   endAt   DateTime
 
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model RecoverCode {
+  id     String @id @default(uuid()) @map("_id")
+  code   String @unique
   userId String
   user   User   @relation(fields: [userId], references: [id])
 }
