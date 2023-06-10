@@ -6,8 +6,6 @@ import { prisma } from "../instance";
 
 export class UserRepository implements FindUser, CreateUserRepository {
     private readonly prisma: PrismaClient = prisma
-    constructor(
-    ) {}
 
     async create(user: User): Promise<void> {
         await this.prisma.user.create({
@@ -16,7 +14,10 @@ export class UserRepository implements FindUser, CreateUserRepository {
                 city: user.city,
                 name: user.name,
                 cpf: user.cpf,
-                state: user.state
+                state: user.state,
+                email: user.email,
+                gender: user.gender,
+                password: user.password,
             }
         })        
     }
@@ -31,7 +32,35 @@ export class UserRepository implements FindUser, CreateUserRepository {
         if(!prismaUser) throw new Error('User not found')
 
         return new User(
-            prismaUser.name, prismaUser.cpf, prismaUser.state, prismaUser.city, prismaUser.birthDate
+            prismaUser.name,
+            prismaUser.cpf,
+            prismaUser.state,
+            prismaUser.city,
+            prismaUser.birthDate,
+            prismaUser.password,
+            prismaUser.gender,
+            prismaUser.email,
+        )
+    }
+
+    async findByEmail(email: string): Promise<User> {
+        const prismaUser = await this.prisma.user.findUnique({
+            where: {
+                email,
+            }
+        })
+
+        if(!prismaUser) throw new Error('User not found')
+
+        return new User(
+            prismaUser.name,
+            prismaUser.cpf,
+            prismaUser.state,
+            prismaUser.city,
+            prismaUser.birthDate,
+            prismaUser.password,
+            prismaUser.gender,
+            prismaUser.email,
         )
     }
 }

@@ -5,6 +5,9 @@ export class User {
         private _state: string,
         private _city: string,
         private _birthDate: Date,
+        public password: string,
+        public gender: string,
+        public email: string,
     ) {}
 
     get name() {

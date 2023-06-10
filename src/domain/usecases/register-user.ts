@@ -6,10 +6,13 @@ type Output = {
 }
 
 type Input = {
-    name: string
-    cpf: string
-    state: string
-    city: string
+    name: string,
+    cpf: string,
+    state: string,
+    city: string,
+    birthDate: Date,
+    password: string,
+    gender: string,
 }
 
 export interface RegisterUser {
